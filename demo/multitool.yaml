@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multitool
+  labels:
+    app: multitool
+spec:
+  securityContext:
+    allowPrivilegeEscalation: false
+  containers:
+  - name: multitool
+    image: wbitt/network-multitool
+    resources: {}

@@ -1,0 +1,22 @@
+---
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
+metadata:
+  name: platform.tenant-hipstershop
+spec:
+  tier: platform
+  order: 50
+  selector: tenant == "hipstershop"
+  ingress:
+    - action: Pass
+      source:
+        selector: tenant == "hipstershop"
+      destination: {}
+  egress:
+    - action: Pass
+      source: {}
+      destination:
+        selector: tenant == "hipstershop"
+  types:
+    - Ingress
+    - Egress

@@ -1,0 +1,30 @@
+---
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
+metadata:
+  name: security.hipaa-restrict
+spec:
+  tier: security
+  order: 75
+  selector: hipaa == "true"
+  ingress:
+    - action: Pass
+      source:
+        selector: hipaa == "true"
+      destination: {}
+    - action: Deny
+      source:
+        selector: hipaa != "true"
+      destination: {}
+  egress:
+    - action: Pass
+      source: {}
+      destination:
+        selector: hipaa == "true"
+    - action: Deny
+      source: {}
+      destination:
+        selector: hipaa != "true"
+  types:
+    - Ingress
+    - Egress

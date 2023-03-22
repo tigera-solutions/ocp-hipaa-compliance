@@ -1,0 +1,11 @@
+---
+apiVersion: projectcalico.org/v3
+kind: GlobalReport
+metadata:
+  name: daily-hipaa-policy-audit
+spec:
+  reportType: policy-audit
+  # schedule: '*/30 * * * *'
+  endpoints:
+    selector: hipaa == "true"
+  schedule: 0 0 * * *

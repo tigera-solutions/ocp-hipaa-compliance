@@ -1,0 +1,13 @@
+---
+apiVersion: projectcalico.org/v3
+# kind: StagedGlobalNetworkPolicy
+kind: GlobalNetworkPolicy
+metadata:
+  name: default.default-deny
+spec:
+  tier: default
+  selector: "projectcalico.org/namespace in {'default','hipstershop'}"
+  order: 2000
+  types:
+    - Ingress
+    - Egress

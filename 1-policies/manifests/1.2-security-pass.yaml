@@ -1,0 +1,15 @@
+---
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
+metadata:
+  name: security.default-pass
+spec:
+  tier: security
+  order: 2000
+  ingress:
+    - action: Pass
+  egress:
+    - action: Pass
+  types:
+    - Ingress
+    - Egress

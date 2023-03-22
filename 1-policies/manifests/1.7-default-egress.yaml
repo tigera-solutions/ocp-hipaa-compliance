@@ -1,0 +1,13 @@
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: platform.default-egress
+  namespace: default
+spec:
+  tier: platform
+  order: 75
+  egress:
+    - action: Allow
+  types:
+    - Egress

@@ -1,0 +1,10 @@
+---
+apiVersion: projectcalico.org/v3
+kind: GlobalReport
+metadata:
+  name: daily-hipaa-network-access
+spec:
+  reportType: network-access
+  endpoints:
+    selector: hipaa == "true"
+  schedule: 0 0 * * *

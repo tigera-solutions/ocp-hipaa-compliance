@@ -1,0 +1,65 @@
+---
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
+metadata:
+  name: security.hipaa-allowlist
+spec:
+  tier: security
+  order: 0
+  selector: all()
+  ingress:
+    - action: Allow
+      protocol: TCP
+      source: {}
+      destination:
+        selector: app == "frontend"
+        ports:
+          - '8080'
+  egress:
+    - action: Allow
+      protocol: UDP
+      source: {}
+      destination:
+        namespaceSelector: projectcalico.org/name == "openshift-dns"
+        ports:
+          - '5353'
+    - action: Allow
+      protocol: TCP
+      source: {}
+      destination:
+        namespaceSelector: projectcalico.org/name == "openshift-dns"
+        ports:
+          - '5353'
+  types:
+    - Ingress
+    - Egress
+---
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
+metadata:
+  name: security.hipaa-restrict
+spec:
+  tier: security
+  order: 75
+  selector: hipaa == "true"
+  ingress:
+    - action: Allow
+      source:
+        selector: hipaa == "true"
+      destination: {}
+    - action: Deny
+      source:
+        selector: hipaa != "true"
+      destination: {}
+  egress:
+    - action: Allow
+      source: {}
+      destination:
+        selector: hipaa == "true"
+    - action: Deny
+      source: {}
+      destination:
+        selector: hipaa != "true"
+  types:
+    - Ingress
+    - Egress

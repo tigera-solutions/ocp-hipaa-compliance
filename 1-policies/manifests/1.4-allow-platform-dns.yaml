@@ -1,0 +1,41 @@
+---
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
+metadata:
+  name: platform.allow-platform-dns
+spec:
+  tier: platform
+  order: -50
+  ingress:
+    - action: Allow
+      protocol: TCP
+      source: {}
+      destination:
+        namespaceSelector: projectcalico.org/name == "openshift-dns"
+        ports:
+          - "5353"
+    - action: Allow
+      protocol: UDP
+      source: {}
+      destination:
+        namespaceSelector: projectcalico.org/name == "openshift-dns"
+        ports:
+          - "5353"
+  egress:
+    - action: Allow
+      protocol: TCP
+      source: {}
+      destination:
+        namespaceSelector: projectcalico.org/name == "openshift-dns"
+        ports:
+          - "5353"
+    - action: Allow
+      protocol: UDP
+      source: {}
+      destination:
+        namespaceSelector: projectcalico.org/name == "openshift-dns"
+        ports:
+          - "5353"
+  types:
+    - Ingress
+    - Egress

@@ -1,0 +1,8 @@
+---
+apiVersion: projectcalico.org/v3
+kind: GlobalReport
+metadata:
+  name: hourly-inventory-report
+spec:
+  reportType: inventory
+  schedule: 0 0 * * *
